@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
           this.toastr.error(Object(data).poruka, 'Greška');
         } else if (Object(data).sifra == 1){
           this.toastr.success(Object(data).poruka, 'Info');
-          // document.location.href = '/login';
+          document.location.href = '/pocetna';
           let token = Object(data).token;          
           localStorage.setItem("token", token);
         } else {

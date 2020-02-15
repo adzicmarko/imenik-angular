@@ -23,7 +23,6 @@ proveriToken (){
         this.logout();
     } else {
       this.pokupiToken().subscribe((data)=>{
-        console.log(data);
         if (Object(data).sifra != 1){
           this.logout ();
         }

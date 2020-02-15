@@ -1,0 +1,37 @@
+<div class="col-lg-12">
+    <div class="row">
+        <div class="col-lg-6">
+            <form [formGroup]="formdata" (ngSubmit)="dodajKontakt(formdata.value)">
+                <label for="imeIprezime">Ime i prezime</label>
+                <input formControlName="imeIprezime"  id="imeIprezime" class="form-control" placeholder="Ime i prezime">
+                <label for="telefon">Broj telefona</label>
+                <input formControlName="telefon" id="telefon" class="form-control" placeholder="Broj telefona">
+                <button [disabled]="!formdata.valid" type="submit" class="btn btn-primary btn-block">Dodaj</button>
+            </form>
+        </div>
+        <div class="col-lg-6">
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td>Ime i prezime</td>
+                        <td>Telefon</td>
+                        <td>Brisanje</td>
+                        <td>Izmena</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let i of kontakti">
+                        <td>{{i.imeiprezime}}</td>
+                        <td>{{i.telefon}}</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+        </div>
+
+    </div>
+</div>
