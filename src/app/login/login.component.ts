@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   constructor(private http: HttpClient, private toastr: ToastrService, private servis: ServisService) { }
 
   ngOnInit(): void {
-
+    setInterval(() => {this.servis.proveriToken(); }, 50000);
     this.formdata = new FormGroup({
       korisnickoIme: new FormControl("", this.korisnickoImeValidacija),
       email: new FormControl("", this.emailValidacija),
