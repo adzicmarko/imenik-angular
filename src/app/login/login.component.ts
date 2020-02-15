@@ -1,18 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ɵCompiler_compileModuleSync__POST_R3__ } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { FormGroup, FormControl} from '@angular/forms';
+import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ServisService } from '../servis.service';
 
-
 @Component({
-  selector: 'app-registracija',
-  templateUrl: './registracija.component.html',
-  styleUrls: ['./registracija.component.css']
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
 })
-export class RegistracijaComponent implements OnInit {
-
+export class LoginComponent implements OnInit {
   formdata;
+  
 
   constructor(private http: HttpClient, private toastr: ToastrService, private servis: ServisService) { }
 
@@ -21,8 +20,7 @@ export class RegistracijaComponent implements OnInit {
     this.formdata = new FormGroup({
       korisnickoIme: new FormControl("", this.korisnickoImeValidacija),
       email: new FormControl("", this.emailValidacija),
-      sifra1: new FormControl("", this.sifra1Validacija),
-      sifra2: new FormControl("", this.sifra2Validacija)
+      sifra: new FormControl("", this.sifraValidacija)
     });
   }
 
@@ -32,15 +30,9 @@ export class RegistracijaComponent implements OnInit {
     }
   }
 
-  sifra1Validacija(polje) {
+  sifraValidacija(polje) {
     if (polje.value.length < 1) {
-      return { "sifra1": true }
-    }
-  }
-
-  sifra2Validacija(polje) {
-    if (polje.value.length < 1) {
-      return { "sifra2": true }
+      return { "sifra": true }
     }
   }
 
@@ -51,30 +43,28 @@ export class RegistracijaComponent implements OnInit {
   }
 
   obradaForme(podaci) {
-    if (this.formdata.value.sifra1 != this.formdata.value.sifra2) {
-      this.toastr.error('Šifre nisu iste', 'Greška!');
-    } else {
       let korisnik = {
         username: podaci.korisnickoIme,
-        password: podaci.sifra1,
+        password: podaci.sifra,
         email: podaci.email
       };
       let korisnikJson = JSON.stringify(korisnik);      
-      this.posaljiRegistraciju(korisnikJson).subscribe((data) => {
+      this.posaljiLogovanje(korisnikJson).subscribe((data) => {
         console.log(data);
         if (Object(data).sifra == 0){
           this.toastr.error(Object(data).poruka, 'Greška');
         } else if (Object(data).sifra == 1){
           this.toastr.success(Object(data).poruka, 'Info');
-          document.location.href = '/login';
+          // document.location.href = '/login';
+          let token = Object(data).token;          
+          localStorage.setItem("token", token);
         } else {
           this.toastr.warning(Object(data).poruka, 'Info');
         }
-      });
-    }
+      });    
   }
 
-  posaljiRegistraciju (parametri){
-    return this.http.post(this.servis.apiUrl+"registracija", parametri);
+  posaljiLogovanje (parametri){
+    return this.http.post(this.servis.apiUrl+"login", parametri);
   }
 }

@@ -1,4 +1,5 @@
 <div class="blockRegistracija well">
+    <h1 class="text-center">Registracija</h1>
     <form [formGroup]="formdata" (ngSubmit)="obradaForme(formdata.value)">
 
         <label for="korisnickoIme">Korisnicko ime:</label><br>
@@ -17,5 +18,5 @@
 
         <button [disabled]="!formdata.valid" class="btn btn-primary btn-block" type="submit">Registruj se</button>
     </form>
-
+    <p class="login">Ukoliko ste registrovani <a routerLink="/login">Ulogujte se</a></p>
 </div>
