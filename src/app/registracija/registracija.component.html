@@ -1,0 +1,21 @@
+<div class="blockRegistracija well">
+    <form [formGroup]="formdata" (ngSubmit)="obradaForme(formdata.value)">
+
+        <label for="korisnickoIme">Korisnicko ime:</label><br>
+        <input formControlName="korisnickoIme" name="korisnickoIme" type="text" placeholder="Korisnicko ime"
+            id="korisnickoIme" class="form-control"><br>
+
+        <label for="email">E-mail:</label><br>
+        <input formControlName="email" name="email" type="email" placeholder="E-mail" id="email" class="form-control"><br>
+
+        <label for="sifra">Sifra:</label><br>
+        <input formControlName="sifra1" type="password" name="sifra1" placeholder="Sifra" id="sifra" class="form-control"><br>
+
+        <label for="sifra2">Ponovi sifru:</label><br>
+        <input formControlName="sifra2" type="password" name="sifra2" placeholder="Ponovi sifru" id="sifra2"
+            class="form-control"><br>
+
+        <button [disabled]="!formdata.valid" class="btn btn-primary btn-block" type="submit">Registruj se</button>
+    </form>
+
+</div>
