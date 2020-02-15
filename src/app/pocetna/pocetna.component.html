@@ -24,14 +24,49 @@
                     <tr *ngFor="let i of kontakti">
                         <td>{{i.imeiprezime}}</td>
                         <td>{{i.telefon}}</td>
-                        <td></td>
+                        <td><p (click)="prikaziKontakt(i.id);" class="btn btn-info btn-sm" data-toggle="modal" data-target="#kontaktModal" type="button">Izmeni</p></td>
                         <td></td>
                     </tr>
                 </tbody>
             </table>
-
-
         </div>
-
     </div>
 </div>
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="kontaktModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+        </div>
+        <div class="modal-body">
+             
+            <form [formGroup]="formatdataModal" (ngSubmit)="izmeniKontakt(idKontakta)"> 
+                <label for="imeIprezimeI">Ime i prezime:</label>
+                <input formControlName="imeIprezimeM"  value="{{kontaktImeIprezime}}" name="imeIprezimeI" type="text" id="imeIprezimeI" class="form-control">
+
+                <label for="telefonI">Telefon:</label>
+                <input formControlName="telefonM" value="{{kontaktTelefon}}" name="telefonI" type="text"  id="telefonI" class="form-control">
+
+                <label for="vremeUpisa">Vreme upisa:</label>
+                <input name="vremeUpisa" type="text" value="{{vremeUpisa}}" id="vremeUpisa" class="form-control" disabled><br>
+                
+                <button [disabled]="!formatdataModal.valid"type="submit" class="btn btn-primary btn-block">Izmeni</button>
+
+
+
+
+
+            </form>
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
