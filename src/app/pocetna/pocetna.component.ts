@@ -33,7 +33,7 @@ export class PocetnaComponent implements OnInit {
     
     this.formatdataModal = new FormGroup({
       imeIprezimeM: new FormControl(this.imeIprezimeValidacijaM, this.imeIprezimeValidacijaM),
-      telefonM: new FormControl(this.imeIprezimeValidacijaM, this.telefonValidacijaM),
+      telefonM: new FormControl(this.telefonValidacijaM, this.telefonValidacijaM),
     });
 
     
