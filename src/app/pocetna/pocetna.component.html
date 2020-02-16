@@ -6,7 +6,7 @@
                 <input formControlName="imeIprezime"  id="imeIprezime" class="form-control" placeholder="Ime i prezime">
                 <label for="telefon">Broj telefona</label>
                 <input formControlName="telefon" id="telefon" class="form-control" placeholder="Broj telefona">
-                <button [disabled]="!formdata.valid" type="submit" class="btn btn-primary btn-block">Dodaj</button>
+                <button [disabled]="!formdata.valid" type="submit" class="btn btn-primary btn-block">Dodaj</button><br>
             </form>
         </div>
         <div class="col-lg-6">
@@ -16,8 +16,8 @@
                     <tr>
                         <td>Ime i prezime</td>
                         <td>Telefon</td>
-                        <td>Brisanje</td>
                         <td>Izmena</td>
+                        <td>Brisanje</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -25,7 +25,7 @@
                         <td>{{i.imeiprezime}}</td>
                         <td>{{i.telefon}}</td>
                         <td><p (click)="prikaziKontakt(i.id);" class="btn btn-info btn-sm" data-toggle="modal" data-target="#kontaktModal" type="button">Izmeni</p></td>
-                        <td></td>
+                        <td><p (click)="obrisiKontakt(i.id)" class="btn btn-danger btn-sm">Obrisi</p></td>
                     </tr>
                 </tbody>
             </table>
@@ -39,33 +39,23 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" #closebutton><span aria-hidden="true">&times;</span></button>
           <h4 class="modal-title" id="myModalLabel">Modal title</h4>
         </div>
         <div class="modal-body">
              
-            <form [formGroup]="formatdataModal" (ngSubmit)="izmeniKontakt(idKontakta)"> 
+            <form  (ngSubmit)="izmeniKontakt(idKontakta, kontaktImeIprezime, kontaktTelefon)"> 
                 <label for="imeIprezimeI">Ime i prezime:</label>
-                <input formControlName="imeIprezimeM"  value="{{kontaktImeIprezime}}" name="imeIprezimeI" type="text" id="imeIprezimeI" class="form-control">
+                <input value="{{kontaktImeIprezime}}" name="imeIprezimeI" [(ngModel)]="kontaktImeIprezime" type="text" id="imeIprezimeI" class="form-control">
 
                 <label for="telefonI">Telefon:</label>
-                <input formControlName="telefonM" value="{{kontaktTelefon}}" name="telefonI" type="text"  id="telefonI" class="form-control">
+                <input value="{{kontaktTelefon}}" name="telefonI" [(ngModel)]="kontaktTelefon" type="text"  id="telefonI" class="form-control">
 
                 <label for="vremeUpisa">Vreme upisa:</label>
                 <input name="vremeUpisa" type="text" value="{{vremeUpisa}}" id="vremeUpisa" class="form-control" disabled><br>
                 
-                <button [disabled]="!formatdataModal.valid"type="submit" class="btn btn-primary btn-block">Izmeni</button>
-
-
-
-
-
-            </form>
-          
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="submit" class="btn btn-primary btn-block" id="izmenaDugmeta">Izmeni</button>
+            </form>          
         </div>
       </div>
     </div>
