@@ -54,15 +54,19 @@ export class PocetnaComponent implements OnInit {
       imeiprezime: podaci.imeIprezime,
       telefon: podaci.telefon
     };
-    let jsonKontakt = JSON.stringify(kontakt);
-    this.upisiKontakt(jsonKontakt).subscribe((data) => {
-      if (Object(data).sifra == 1) {
-        this.toastr.success('Info', Object(data).poruka);
-      } else {
-        this.toastr.error('Greška', Object(data).poruka);
-      }
-    });
-    this.izlistajKontakte();
+    if (kontakt.telefon.charAt("0") != 0 && kontakt.telefon.charAt("1") != 6) {
+      this.toastr.error("Broj telefona mora pocinjati sa 06", 'Greška');
+    } else {
+      let jsonKontakt = JSON.stringify(kontakt);
+      this.upisiKontakt(jsonKontakt).subscribe((data) => {
+        if (Object(data).sifra == 1) {
+          this.toastr.success('Info', Object(data).poruka);
+        } else {
+          this.toastr.error('Greška', Object(data).poruka);
+        }
+      });
+      this.izlistajKontakte();
+    }
   }
 
   izlistajKontakte() {
@@ -93,26 +97,31 @@ export class PocetnaComponent implements OnInit {
   izmeniKontakt(id, izmenjenoIme, izmenjenTelefon) {
     for (let i = 0; i < this.kontakti.length; i++) {
       if (this.kontakti[i].id == id) {
-        if(izmenjenoIme.length < 1 || izmenjenTelefon.length < 1){
+        if (izmenjenoIme.length < 1 || izmenjenTelefon.length < 1) {
           this.toastr.error('Info', "Popunite sva polja");
         } else {
-        this.kontakti[i].imeiprezime = izmenjenoIme;
-        this.kontakti[i].telefon = izmenjenTelefon;
-        let jsonIzmenjenKontakt = JSON.stringify(this.kontakti[i]);
-        this.izmenaKontakta(id, jsonIzmenjenKontakt).subscribe((data) => {
-          this.toastr.success('Info', Object(data).poruka);
-          this.closebutton.nativeElement.click();
-        });
+          if (izmenjenTelefon.charAt("0") != 0 && izmenjenTelefon.charAt("1") != 6) {
+            this.toastr.error("Broj telefona mora pocinjati sa 06", 'Greška');
+          } else {
+          this.kontakti[i].imeiprezime = izmenjenoIme;
+          this.kontakti[i].telefon = izmenjenTelefon;
+          let jsonIzmenjenKontakt = JSON.stringify(this.kontakti[i]);
+          this.izmenaKontakta(id, jsonIzmenjenKontakt).subscribe((data) => {
+            this.toastr.success('Info', Object(data).poruka);
+            this.closebutton.nativeElement.click();
+          });
+        }
       }
+
       }
     }
   }
 
-  obrisiKontakt(id){
-    this.brisanjeKontakta(id).subscribe((data)=>{
+  obrisiKontakt(id) {
+    this.brisanjeKontakta(id).subscribe((data) => {
       this.toastr.success('Info', Object(data).poruka);
       this.izlistajKontakte();
-    }); 
+    });
   }
 
   upisiKontakt(kontakt) {
@@ -138,4 +147,4 @@ export class PocetnaComponent implements OnInit {
 
 
 
-  }
+}
