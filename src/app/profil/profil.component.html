@@ -1,1 +1,33 @@
-<p>profil works!</p>
+<div class="row">
+    <div class="col-lg-4">
+        <div class="well">
+            <p><b>ID</b></p>
+            <input value="{{korisnikId}}" disabled class="form-control">
+            <p><b>Korisničko ime</b></p>
+            <input value="{{username}}" disabled class="form-control">
+            <p><b>E-mail</b></p>
+            <input value="{{email}}" disabled class="form-control">
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="well">
+            <form (ngSubmit)="promenaLozinke();">
+                <h2 class="text-center">Izmena lozinke</h2>
+                <label for="staraLozinka">Stara lozinka</label>
+                <input id="staraLozinka" class="form-control" [(ngModel)]="staraLozinka" name="staraLozinka">
+
+                <label for="novaLozinka">Nova lozinka</label>
+                <input id="novaLozinka" class="form-control" [(ngModel)]="novaLozinka" name="novaLozinka">
+
+                <label for="novaLozinka2">Ponovi novu lozinku</label>
+                <input id="novaLozinka2" class="form-control" [(ngModel)]="novaLozinka2" name="novaLozinka2"><br>
+
+                <button type="submit" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-lock"></span>
+                    Izmeni lozinku</button>
+            </form>
+        </div>
+    </div>
+    <div class="col-lg-4">
+
+    </div>
+</div>
