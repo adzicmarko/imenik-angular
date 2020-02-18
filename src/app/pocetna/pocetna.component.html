@@ -3,9 +3,9 @@
         <div class="col-lg-6">
             <form [formGroup]="formdata" (ngSubmit)="dodajKontakt(formdata.value)">
                 <label for="imeIprezime">Ime i prezime</label>
-                <input formControlName="imeIprezime"  id="imeIprezime" class="form-control" placeholder="Ime i prezime"><br>
+                <input formControlName="imeIprezime"  id="imeIprezime" class="form-control" placeholder="Ime i prezime" [(ngModel)]="imeIprezime" name="imeIprezime"><br>
                 <label for="telefon">Broj telefona</label>
-                <input formControlName="telefon" id="telefon" class="form-control" placeholder="Broj telefona"><br>
+                <input formControlName="telefon" id="telefon" class="form-control" placeholder="Broj telefona" [(ngModel)]="telefon" name="telefon"><br>
                 <button [disabled]="!formdata.valid" type="submit" class="btn btn-primary btn-block">Dodaj</button><br>
             </form>
         </div>

@@ -19,6 +19,8 @@ export class PocetnaComponent implements OnInit {
   vremeUpisa;
   izmenjenoIme = "";
   izmenjenTelefon = "";
+  telefon = "";
+  imeIprezime ="";
   @ViewChild('closebutton', { static: false }) closebutton;
 
   constructor(private http: HttpClient, private toastr: ToastrService, private servis: ServisService) { }
@@ -31,7 +33,6 @@ export class PocetnaComponent implements OnInit {
       imeIprezime: new FormControl("", this.imeIprezimeValidacija),
       telefon: new FormControl("", this.telefonValidacija),
     });
-
 
     this.izlistajKontakte();
   }
@@ -66,6 +67,8 @@ export class PocetnaComponent implements OnInit {
         }
       });
       this.izlistajKontakte();
+      this.telefon = "";
+      this.imeIprezime = "";
     }
   }
 
