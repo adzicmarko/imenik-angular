@@ -20,6 +20,7 @@ export class ProfilComponent implements OnInit {
   staraLozinka = "";
   novaLozinka = "";
   novaLozinka2 = "";
+  profilnaSlika ="";
 
   constructor(private http: HttpClient, private servis: ServisService, private toastr: ToastrService) { }
 
@@ -28,11 +29,11 @@ export class ProfilComponent implements OnInit {
     setInterval(() => { this.servis.proveriToken(); }, 50000);
 
     this.prikaziKorisnikInfo();
+    this.prikaziProfilnu();
   }
 
   prikaziKorisnikInfo() {
     this.dajKorisnikInfo().subscribe((data) => {
-      // console.log(data);
       this.korisnikId = data[0].id;
       this.username = data[0].username;
       this.email = data[0].email;
@@ -63,9 +64,6 @@ export class ProfilComponent implements OnInit {
       });
     }
   }
-
-
-
   validacijaPolja(){
     if (this.staraLozinka.length < 1) {
       this.toastr.error('Morate uneti staru lozinku', 'Greška!');
@@ -101,6 +99,13 @@ export class ProfilComponent implements OnInit {
       return true;
   }
 
+  prikaziProfilnu(){
+    this.dajKorisnikInfo().subscribe((data)=>{
+      if (Object(data[0]).img == ""){
+        this.profilnaSlika = "images/user.jpg";
+      }
+    });
+  }
 
 
 
